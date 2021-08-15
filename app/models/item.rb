@@ -10,10 +10,9 @@ class Item < ApplicationRecord
   has_one_attached :image
 
   with_options presence: true do
-    validates :name
-    validates :description
-    validates :price
-
+      validates :name, length: {maximum: 50, allow_blank:true}
+      validates :description, length: {maximum:1000, allow_blank:true}
+      validates :price, numericality: {allow_blank: true, only_integer: true, greater_than_or_equal_to:300, less_than_or_equal_to:9999999}
     with_options numericality: { other_than: 1 , message: "can't be blank"} do
       validates :category_id
       validates :condition_id
