@@ -10,6 +10,7 @@ class Item < ApplicationRecord
   has_one_attached :image
 
   with_options presence: true do
+      validates :image
       validates :name, length: {maximum: 50, allow_blank:true}
       validates :description, length: {maximum:1000, allow_blank:true}
       validates :price, numericality: {allow_blank: true, only_integer: true, greater_than_or_equal_to:300, less_than_or_equal_to:9999999}
