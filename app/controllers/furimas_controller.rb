@@ -1,5 +1,5 @@
 class FurimasController < ApplicationController
-  def index 
-    @items = Item.order("created_at DESC")
-  end
+  #def index 
+   # @items = Item.all
+  #end
 end
