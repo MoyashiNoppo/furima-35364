@@ -11,7 +11,7 @@ class PurchaseShipping
     validates :item_id
     validates :token
   end
-  validates :ship_from_area_id, numericality: {other_than: 0, message: "can't be blank"}
+  validates :ship_from_area_id, numericality: {other_than: 1, message: "can't be blank"}
 
   def save
     purchase = Purchase.create(user_id: user_id, item_id: item_id)
