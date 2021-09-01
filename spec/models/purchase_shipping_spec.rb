@@ -114,13 +114,13 @@ RSpec.describe PurchaseShipping, type: :model do
       end
 
       it 'phone_numberの数字が12桁以上では保存できない' do
-        @purchase_shipping.phone_number = 123456789012
+        @purchase_shipping.phone_number = '123456789012'
         @purchase_shipping.valid?
         expect(@purchase_shipping.errors.full_messages).to include("Phone number is invalid")
       end
 
       it 'phone_numberの数字が9桁以下では保存できない' do
-        @purchase_shipping.phone_number = 123456789
+        @purchase_shipping.phone_number = '123456789'
         @purchase_shipping.valid?
         expect(@purchase_shipping.errors.full_messages).to include("Phone number is invalid")
       end
