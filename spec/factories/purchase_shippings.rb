@@ -4,9 +4,8 @@ FactoryBot.define do
     ship_from_area_id {Faker::Number.within(range: 2..48)}
     municipality      {'漢字'}
     address           {'漢字'}
-    building_name     {''}
-    phone_number      {12345678901}
-    association       :user
-    association       :item
+    building_name     {'テスト荘'}
+    phone_number      {'12345678901'}
+    token             {"PAYJP_SECRET_KEY"}
   end
 end

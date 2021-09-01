@@ -22,31 +22,44 @@ RSpec.describe PurchaseShipping, type: :model do
     end
 
     context '内容に問題がある場合' do
+
+      it 'ユーザー情報がなければ登録できない' do
+        @purchase_shipping.user_id = nil
+        @purchase_shipping.valid?
+        expect(@purchase_shipping.errors.full_messages).to include("User can't be blank")
+      end
+
+      it '商品情報がなければ登録できない' do
+        @purchase_shipping.item_id = nil
+        @purchase_shipping.valid?
+        expect(@purchase_shipping.errors.full_messages).to include("Item can't be blank")
+      end
+
       it 'postal_codeが空だと保存できない' do
         @purchase_shipping.postal_code = ''
         @purchase_shipping.valid?
         expect(@purchase_shipping.errors.full_messages).to include("Postal code can't be blank")
       end
 
-      it 'postal_codeの’-’より前が4文字以上あると保存できない' do
+      it 'postal_codeの’-’より前が4桁以上あると保存できない' do
         @purchase_shipping.postal_code = '1234-1234'
         @purchase_shipping.valid?
         expect(@purchase_shipping.errors.full_messages).to include("Postal code is invalid")
       end
 
-      it 'postal_codeの’-’より前が2文字以下では保存できない' do
+      it 'postal_codeの’-’より前が2桁以下では保存できない' do
         @purchase_shipping.postal_code = '12-1234'
         @purchase_shipping.valid?
         expect(@purchase_shipping.errors.full_messages).to include("Postal code is invalid")
       end
 
-      it 'postal_codeの’-’より後が5文字以上あると保存できない' do
+      it 'postal_codeの’-’より後が5桁以上あると保存できない' do
         @purchase_shipping.postal_code = '123-12345'
         @purchase_shipping.valid?
         expect(@purchase_shipping.errors.full_messages).to include("Postal code is invalid")
       end
 
-      it 'postal_codeの’-’より後が3文字以下では保存できない' do
+      it 'postal_codeの’-’より後が3桁以下では保存できない' do
         @purchase_shipping.postal_code = '123-123'
         @purchase_shipping.valid?
         expect(@purchase_shipping.errors.full_messages).to include("Postal code is invalid")
@@ -100,8 +113,14 @@ RSpec.describe PurchaseShipping, type: :model do
         expect(@purchase_shipping.errors.full_messages).to include("Phone number is invalid")
       end
 
-      it 'phone_numberの数字が12文字以上では保存できない' do
+      it 'phone_numberの数字が12桁以上では保存できない' do
         @purchase_shipping.phone_number = 123456789012
+        @purchase_shipping.valid?
+        expect(@purchase_shipping.errors.full_messages).to include("Phone number is invalid")
+      end
+
+      it 'phone_numberの数字が9桁以下では保存できない' do
+        @purchase_shipping.phone_number = 123456789
         @purchase_shipping.valid?
         expect(@purchase_shipping.errors.full_messages).to include("Phone number is invalid")
       end
