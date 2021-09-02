@@ -125,10 +125,16 @@ RSpec.describe PurchaseShipping, type: :model do
         expect(@purchase_shipping.errors.full_messages).to include("Phone number is invalid")
       end
 
-      it '配送先の都道府県が未選択では登録できない' do
+      it '配送先の都道府県が未選択では保存できない' do
         @purchase_shipping.ship_from_area_id = 1
         @purchase_shipping.valid?
         expect(@purchase_shipping.errors.full_messages).to include("Ship from area can't be blank")        
+      end
+
+      it 'tokenが空では保存できない' do
+        @purchase_shipping.token = ''
+        @purchase_shipping.valid?
+        expect(@purchase_shipping.errors.full_messages).to include("Token can't be blank")        
       end
     end
   end
